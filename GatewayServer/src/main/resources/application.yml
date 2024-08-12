@@ -1,0 +1,27 @@
+server:
+  port: 9091
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: BookService
+          uri: lb://BookService
+          predicates:
+            - Path=/book/**
+        - id: CustomerService
+          uri: lb://CustomerService
+          predicates:
+            - Path=/customer/**
+        - id: PurchaseService
+          uri: lb://PurchaseService
+          predicates:
+            - Path=/purchase/**
+
+  application:
+    name: GatewayServer
